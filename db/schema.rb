@@ -24,12 +24,10 @@ ActiveRecord::Schema.define(version: 2019_02_09_210653) do
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.integer "company_id"
-    t.integer "director_id"
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_departments_on_company_id"
-    t.index ["director_id"], name: "index_departments_on_director_id"
   end
 
   create_table "employees", force: :cascade do |t|
