@@ -14,7 +14,7 @@ FactoryBot.define do
     pto { true }
   end
 
-  factory :admin do
+  factory :admin, class: 'Employee' do
     name { "Rob Smith" }
     department_id { 1 }
     admin { true }
