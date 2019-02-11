@@ -9,6 +9,10 @@ RSpec.describe CompaniesController, type: :controller do
   end
 
   context 'any user' do
+    before(:each) do
+      session[:user] = nil
+    end
+
     it 'should be able to access the company index' do
       get :index
       expect(response).to have_http_status(200)
