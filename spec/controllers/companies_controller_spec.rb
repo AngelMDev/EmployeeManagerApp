@@ -25,12 +25,12 @@ RSpec.describe CompaniesController, type: :controller do
     end
 
     it 'should be able to access the company where they belong' do
-      get :show, params: { company_name: @company1.name }
+      get :show, params: { company_name: @company1.company_name }
       expect(response).to have_http_status(200)
     end
 
     it 'should not be able to access a company where they don\'t belong' do
-      get :show, params: { company_name: @company2.name }
+      get :show, params: { company_name: @company2.company_name }
       expect(response).to redirect_to(root_path)
       expect(controller).to set_flash[:alert]
     end
