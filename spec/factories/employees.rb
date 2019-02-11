@@ -14,6 +14,21 @@ FactoryBot.define do
     pto { true }
   end
 
+  factory :random_employee, class: 'Employee' do
+    name { Faker::Name.name }
+    department_id { 1 }
+    admin { false }
+    title { Faker::Job.title }
+    email { Faker::Internet.email }
+    address { Faker::Address.street_address }
+    phone { Faker::PhoneNumber.phone_number }
+    salary { 80000 }
+    bonus { 3500 }
+    health_insurance { true }
+    matching { true }
+    pto { true }
+  end
+
   factory :admin, class: 'Employee' do
     name { "Rob Smith" }
     department_id { 1 }

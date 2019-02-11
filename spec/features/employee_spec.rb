@@ -6,27 +6,32 @@ feature 'View employee information' do
   let!(:employee) { create(:employee) }
   let!(:admin) { create(:admin) }
 
-  scenario 'of an employee as an employee' do
+  before(:each) do
     visit '/bloomberg'
-    select('John Doe', :from => 'Sign in as')
+  end
+
+  scenario 'of an employee' do
+    select(employee.name, :from => 'employee')
     click_button 'Sign in'
-    expect(page).to have_content('john_doe@bloomberg.com').and have_content('John Doe').and have_content('50000')
+    expect(page).to have_content(employee.email).and have_content(employee.name).and have_content(employee.salary)
   end
 
   scenario 'of another employee as an administrator' do
-    visit '/bloomberg'
-    select('Rob Smith', :from => 'Sign in as')
+    select('Rob Smith', :from => 'employee')
     click_button 'Sign in'
     click_link 'View all employees'
-    click_link 'John Doe'
-    expect(page).to have_content('john_doe@bloomberg.com').and have_content('John Doe').and have_content('50000')
+    click_link employee.name
+    expect(page).to have_content(employee.email).and have_content(employee.name).and have_content(employee.salary)
   end
 end
 
 feature 'Edit personal information' do
-  scenario 'of an employee as an employee' do
+  before(:each) do
     visit '/bloomberg'
-    select('John Doe', :from => 'Sign in as')
+  end
+
+  scenario 'of an employee as an employee' do
+    select(employee.name, :from => 'employee')
     click_button 'Sign in'
     click_link 'Edit personal information'
     fill_in 'email', with: 'john_doe2@bloomberg.com'
@@ -37,11 +42,10 @@ feature 'Edit personal information' do
   end
 
   scenario 'of another employee as an administrator' do
-    visit '/bloomberg'
-    select('Rob Smith', :from => 'Sign in as')
+    select(admin.name, :from => 'employee')
     click_button 'Sign in'
     click_link 'View all employees'
-    click_link 'John Doe'
+    click_link employee.name
     click_link 'Edit personal information'
     fill_in 'email', with: 'john_doe3@bloomberg.com'
     fill_in 'address', with: '256 Old Avenue Apt 201'
@@ -52,17 +56,26 @@ feature 'Edit personal information' do
 end
 
 feature 'Edit compensation information' do
-  scenario 'of another employee as an administrator' do
+  before(:each) do
     visit '/bloomberg'
-    select('Rob Smith', :from => 'Sign in as')
+  end
+
+  scenario 'of another employee as an administrator' do
+    select(admin.name, :from => 'employee')
     click_button 'Sign in'
     click_link 'View all employees'
-    click_link 'John Doe'
+    click_link employee.name
     click_link 'Edit compensation information'
     fill_in 'salary', with: '75000'
     fill_in 'bonus', with: '5000'
     click_button 'Save'
     expect(page).to have_content('75000').and have_content('5000')
+  end
+
+  scenario 'as an employee to not have access to this feature' do
+    select(employee.name, :from => 'employee')
+    click_button 'Sign in'
+    expect(page).not_to have_content('Edit compensation information')
   end
 end
 

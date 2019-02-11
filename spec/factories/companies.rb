@@ -5,4 +5,11 @@ FactoryBot.define do
     address { "123 Main ave" }
     phone { "555-5555" }
   end
+
+  factory :random_company, class: 'Company' do
+    name { Faker::Company.name }
+    sector { Faker::Company.industry }
+    address { Faker::Address.street_address }
+    phone { Faker::PhoneNumber.phone_number }
+  end
 end

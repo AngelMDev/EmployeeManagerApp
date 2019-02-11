@@ -9,10 +9,10 @@ feature 'View company information' do
   scenario 'as an administrator' do
     visit '/'
     click_link 'Bloomberg'
-    select('Rob Smith', :from => 'Sign in as')
+    select('Rob Smith', :from => 'employee')
     click_button 'Sign in'
     click_link 'View all employees'
-    click_link 'John Doe'
+    click_link employee.name
     click_link 'Edit personal information'
     fill_in 'email', with: 'john_doe3@bloomberg.com'
     fill_in 'address', with: '256 Old Avenue Apt 201'
