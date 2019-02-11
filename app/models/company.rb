@@ -1,4 +1,6 @@
 class Company < ApplicationRecord
   has_many :departments
-  validates :name, presence: true
+  validates :company_name, presence: true, uniqueness: true
+
+
 end
