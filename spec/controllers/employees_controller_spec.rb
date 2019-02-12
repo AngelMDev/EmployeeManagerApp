@@ -55,10 +55,11 @@ RSpec.describe EmployeesController, type: :controller do
     end
 
     it 'should update personal information successfully' do
-      put :update_information, params: { company_name: @company.company_name, id: @employee.id, employee: { address: '890 Old Street' } }
+      patch :update_information, params: { company_name: @company.company_name, id: @employee.id, employee: { address: '890 Old Street' } }
       expect(controller).to set_flash[:success]
-      expect(response).to redirect_to(@employee)
-      expect(employee.address).to eq('890 Old Street')
+      expect(response).to redirect_to(company_employee_path(@employee))
+      @employee.reload
+      expect(@employee.address).to eq('890 Old Street')
     end
 
     it 'should not have access to employee index' do
@@ -75,13 +76,14 @@ RSpec.describe EmployeesController, type: :controller do
 
     it 'should not be able to edit compensation information' do
       get :edit_compensation, params: { company_name: @company.company_name, id: @employee.id }
-      expect(response).to redirect_to(@company)
+      expect(response).to redirect_to(root_path)
       expect(controller).to set_flash[:alert]
     end
 
     it 'should not be able to update compensation information' do
-      put :update_compensation, params: { company_name: @company.company_name, id: @employee.id, employee: { salary: 100000 } }
-      expect(response).to redirect_to(@company)
+      patch :update_compensation, params: { company_name: @company.company_name, id: @employee.id, employee: { salary: 100000 } }
+      expect(response).to redirect_to(root_path)
+      @employee.reload
       expect(@employee.salary).not_to eq(100000)
       expect(controller).to set_flash[:error]
     end
@@ -93,7 +95,7 @@ RSpec.describe EmployeesController, type: :controller do
     end
 
     it 'should have access to user index' do
-      get :index, params: { company_name: @company.company_name }
+      get :index, params: { name: @company.company_name }
       expect(response).to have_http_status(200)
     end
 
@@ -115,14 +117,16 @@ RSpec.describe EmployeesController, type: :controller do
     it 'should update personal information successfully' do
       put :update_information, params: { company_name: @company.company_name, id: @employee.id, employee: { address: '890 Old Street' } }
       expect(controller).to set_flash[:success]
-      expect(response).to redirect_to(@employee)
+      @employee.reload
+      expect(response).to redirect_to(company_employee_path(@employee))
       expect(employee.address).to eq('890 Old Street')
     end
 
     it 'should update compensation information successfully' do
       put :update_compensation, params: { company_name: @company.company_name, id: @employee.id, employee: { salary: 100000 } }
       expect(controller).to set_flash[:success]
-      expect(response).to redirect_to(@employee)
+      @employee.reload
+      expect(response).to redirect_to(company_employee_path(@employee))
       expect(@employee.salary).to eq(100000)
     end
   end
