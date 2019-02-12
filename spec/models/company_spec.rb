@@ -8,5 +8,5 @@ RSpec.describe Company, type: :model do
   end
 
   it { should have_many(:departments) }
-  it { should validate_presence_of (:name) }
+  it { should validate_presence_of (:company_name) }
 end

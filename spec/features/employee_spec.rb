@@ -7,7 +7,7 @@ feature 'View employee information' do
   let!(:admin) { create(:admin) }
 
   before(:each) do
-    visit '/bloomberg'
+    visit '/'
   end
 
   scenario 'of an employee' do
@@ -26,8 +26,13 @@ feature 'View employee information' do
 end
 
 feature 'Edit personal information' do
+  let!(:company) { create(:company) }
+  let!(:department) { create(:department) }
+  let!(:employee) { create(:employee) }
+  let!(:admin) { create(:admin) }
+
   before(:each) do
-    visit '/bloomberg'
+    visit '/'
   end
 
   scenario 'of an employee as an employee' do
@@ -56,8 +61,13 @@ feature 'Edit personal information' do
 end
 
 feature 'Edit compensation information' do
+  let!(:company) { create(:company) }
+  let!(:department) { create(:department) }
+  let!(:employee) { create(:employee) }
+  let!(:admin) { create(:admin) }
+
   before(:each) do
-    visit '/bloomberg'
+    visit '/'
   end
 
   scenario 'of another employee as an administrator' do
@@ -78,5 +88,6 @@ feature 'Edit compensation information' do
     expect(page).not_to have_content('Edit compensation information')
   end
 end
+
 
 

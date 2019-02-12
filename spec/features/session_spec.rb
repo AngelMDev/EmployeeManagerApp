@@ -7,7 +7,7 @@ feature 'Sign in' do
   let!(:admin) { create(:admin) }
 
   before(:each) do
-    visit '/bloomberg'
+    visit '/'
   end
 
   scenario 'as an employee' do

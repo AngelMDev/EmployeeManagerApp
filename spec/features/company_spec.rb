@@ -8,7 +8,6 @@ feature 'View company information' do
 
   scenario 'as an administrator' do
     visit '/'
-    click_link 'Bloomberg'
     select('Rob Smith', :from => 'employee')
     click_button 'Sign in'
     click_link 'View all employees'

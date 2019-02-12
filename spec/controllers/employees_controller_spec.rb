@@ -85,7 +85,7 @@ RSpec.describe EmployeesController, type: :controller do
       expect(response).to redirect_to(root_path)
       @employee.reload
       expect(@employee.salary).not_to eq(100000)
-      expect(controller).to set_flash[:error]
+      expect(controller).to set_flash[:alert]
     end
   end
 
@@ -95,7 +95,7 @@ RSpec.describe EmployeesController, type: :controller do
     end
 
     it 'should have access to user index' do
-      get :index, params: { name: @company.company_name }
+      get :index, params: { company_name: @company.company_name }
       expect(response).to have_http_status(200)
     end
 
@@ -119,7 +119,7 @@ RSpec.describe EmployeesController, type: :controller do
       expect(controller).to set_flash[:success]
       @employee.reload
       expect(response).to redirect_to(company_employee_path(@employee))
-      expect(employee.address).to eq('890 Old Street')
+      expect(@employee.address).to eq('890 Old Street')
     end
 
     it 'should update compensation information successfully' do

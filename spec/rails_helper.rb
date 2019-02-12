@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'capybara/rails'
+require "selenium/webdriver"
 require 'database_cleaner'
 require 'shoulda-matchers'
 require 'faker'
@@ -92,6 +93,21 @@ RSpec.configure do |config|
     end
   end
 
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
+
+  Capybara.register_driver :headless_chrome do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+        chromeOptions: { args: %w(headless disable-gpu) }
+    )
+
+    Capybara::Selenium::Driver.new app,
+                                   browser: :chrome,
+                                   desired_capabilities: capabilities
+  end
+
+  Capybara.javascript_driver = :headless_chrome
   Capybara.configure do |config|
     config.default_max_wait_time = 10
   end
