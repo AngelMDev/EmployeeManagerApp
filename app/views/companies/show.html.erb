@@ -1,17 +1,18 @@
 
-<%= link_to "View all employees", company_employees_path(@company) if current_user.admin %>
-<%= link_to "View your information", company_employee_path(@company, current_user) %>
-
 <h3><%= @company.company_name %></h3>
 <p><%= @company.sector %></p>
 <p><%= @company.address %></p>
 <p><%= @company.phone %></p>
 
-<table>
-  <tr>
-    <th>Department</th>
-    <th>Name</th>
-    <th>Top Salaries</th>
+<%= link_to "View all employees", company_employees_path(@company), class: "btn btn-info" if current_user.admin %>
+<%= link_to "View your information", company_employee_path(@company, current_user), class: "btn btn-info" %>
+<br><br>
+
+<table class="table col-sm-4 table-bordered table-hover table-sm">
+  <tr class="table-active">
+    <th scope="col">Department</th>
+    <th scope="col">Name</th>
+    <th scope="col">Top Salaries</th>
   </tr>
   <% @top_earners.each do |employee| %>
     <tr>

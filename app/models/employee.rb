@@ -21,7 +21,7 @@ class Employee < ApplicationRecord
 
   # We use this to populate the sign in select box.
   def name_company_role
-    "#{name} - #{company.company_name} - #{admin ? 'admin' : 'employee'}"
+    "#{name} - #{company.company_name} #{' (Administrator) ' if admin? }"
   end
 
   def self.top_earners_by_department(company)

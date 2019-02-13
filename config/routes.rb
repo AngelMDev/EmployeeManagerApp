@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'companies#index'
+  root to: 'sessions#index'
   resources :companies, only: [:index, :show], param: :name, path: '' do
     resources :departments, only: [:index, :show], param: :department_name
     resources :employees, except: [:edit, :new, :update] do

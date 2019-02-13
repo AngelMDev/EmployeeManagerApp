@@ -1,12 +1,25 @@
- <div>
-   <% if current_user %>
-     Currently logged in as <%= "#{current_user.name} (#{current_user.admin ? 'Admin' : 'Employee'})" %>
-     <%= link_to "Log out", logout_path, method: :post %>
-   <% end  %>
-
-   <%= form_tag(login_path, authenticity_token: true) do %>
-      <%= label_tag('Sign in as') %>
-      <%= select_tag('employee', options_from_collection_for_select(@employees, "id", "name_company_role")) %>
-      <%= submit_tag('Sign in')%>
-   <% end %>
- </div>
+ <nav class="row navbar navbar-expand-lg navbar-light bg-light">
+   <div class="col-sm-4">
+     <%=link_to("Employee Manager App", logout_path, method: :post)  %> |
+     <%=link_to(current_company.company_name.titleize, company_path(current_company.company_name)) if current_company %>
+   </div>
+   <div class="col-sm-4">
+     <% if current_user %>
+       Currently logged in as <%= "#{current_user.name} (#{current_user.admin ? 'Admin' : 'Employee'})" %>
+       <%= link_to "Log out", logout_path, method: :post %>
+     <% end  %>
+   </div>
+   <div class="col-sm-4">
+     <%= form_tag(login_path, authenticity_token: true) do %>
+        <div class="form-row align-items-center">
+          <%= label_tag('sign_in', 'Sign in as', class: 'col-form-label') %>
+          <div class="col-sm-8">
+            <%= select_tag('employee', options_from_collection_for_select(@employees, "id", "name_company_role"), class: "form-control") %>
+          </div>
+          <div class="col">
+            <%= submit_tag('Sign in', class: "btn btn-dark")%>
+          </div>
+        </div>
+     <% end %>
+   </div>
+ </nav>

@@ -10,6 +10,6 @@
 <p>401k Matching: <%= @employee.matching ? "Yes" : "No" %></p>
 <p>PTO: <%= @employee.pto ? "Yes" : "No" %></p>
 
-<%= link_to('Edit personal information', edit_information_company_employee_path(current_company.company_name, @employee)) if current_user == @employee || current_user.admin %>
-<%= link_to('Edit compensation information', edit_compensation_company_employee_path(current_company.company_name, @employee)) if current_user.admin %>
+<%= link_to('Edit personal information', edit_information_company_employee_path(current_company.company_name, @employee), class: "btn btn-info") if current_user == @employee || current_user.admin %>
+<%= link_to('Edit compensation information', edit_compensation_company_employee_path(current_company.company_name, @employee), class: "btn btn-info") if current_user.admin %>
 

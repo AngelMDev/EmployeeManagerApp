@@ -30,7 +30,7 @@ class EmployeesController < ApplicationController
   def update_compensation
     @employee = Employee.find(params[:id])
     @employee.update!(compensation_params)
-    flash[:success] = "Personal information updated successfully"
+    flash[:success] = "Compensation information updated successfully"
     redirect_to company_employee_path(current_company.company_name, @employee)
   end
 

@@ -1,12 +1,20 @@
-<br>
-<%= form_for(@employee, url: { action: 'update_information' }) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email, value: @employee.email  %><br>
-  <%= f.label :address %>
-  <%= f.text_field :address, value: @employee.address %><br>
-  <%= f.label :phone %>
-  <%= f.text_field :phone, value: @employee.phone %><br>
-  <%= f.submit :Save %>
-<% end %>
+<div class="col-sm-4">
+  <%= form_for(@employee, url: { action: 'update_information' }) do |f| %>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, value: @employee.email, class: 'form-control'  %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_field :address, value: @employee.address, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone %>
+      <%= f.text_field :phone, value: @employee.phone, class: 'form-control' %>
+    </div>
+    <br>
+    <%= f.submit :Save, class: 'btn btn-primary' %>
+  <% end %>
+</div>
 
 

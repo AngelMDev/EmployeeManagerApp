@@ -1,14 +1,26 @@
-<br>
-<%= form_for(@employee, url: { action: 'update_compensation' }) do |f| %>
-  <%= f.label :salary %>
-  <%= f.text_field :salary, value: @employee.salary  %><br>
-  <%= f.label :bonus %>
-  <%= f.text_field :bonus, value: @employee.bonus %><br>
-  <%= f.label :health_insurance %>
-  <%= f.check_box :health_insurance, value: @employee.health_insurance %><br>
-  <%= f.label :matching, "401k Matching" %>
-  <%= f.check_box :matching, value: @employee.matching %><br>
-  <%= f.label :pto %>
-  <%= f.check_box :pto, value: @employee.pto %><br>
-  <%= f.submit :Save %>
-<% end %>
+<div class="col-sm-4">
+  <%= form_for(@employee, url: { action: 'update_compensation' }) do |f| %>
+    <div class="form-group">
+      <%= f.label :salary %>
+      <%= f.text_field :salary, value: @employee.salary, class: 'form-control'  %>
+    </div>
+    <div class="form-group">
+      <%= f.label :bonus %>
+      <%= f.text_field :bonus, value: @employee.bonus, class: 'form-control' %>
+    </div>
+    <div class="form-check">
+      <%= f.check_box :health_insurance, value: @employee.health_insurance, class: 'form-check-input' %>
+      <%= f.label :pto, class: 'form-check-label' %>
+    </div>
+    <div class="form-check">
+      <%= f.check_box :matching, value: @employee.matching, class: 'form-check-input' %>
+      <%= f.label :matching, "401k Matching", class: 'form-check-label' %>
+    </div>
+    <div class="form-check">
+      <%= f.check_box :pto, value: @employee.pto, class: 'form-check-input' %>
+      <%= f.label :pto, class: 'form-check-label' %>
+    </div>
+    <br>
+    <%= f.submit :Save, class: 'btn btn-primary' %>
+  <% end %>
+</div>
