@@ -6,6 +6,9 @@ RSpec.describe EmployeesController, type: :controller do
     @department = create(:department)
     @employee = create(:employee)
     @employee2 = create(:random_employee)
+    @company2 = create(:random_company)
+    @department2 = create(:random_department, company_id: @company2.id)
+    @employee3 = create(:employee, department_id: @department2.id)
     @admin = create(:admin)
   end
 
@@ -114,7 +117,7 @@ RSpec.describe EmployeesController, type: :controller do
       expect(response).to have_http_status(200)
     end
 
-    it 'should update personal information successfully' do
+    it 'should update personal information successfully with valid data' do
       put :update_information, params: { company_name: @company.company_name, id: @employee.id, employee: { address: '890 Old Street' } }
       expect(controller).to set_flash[:success]
       @employee.reload
@@ -122,12 +125,43 @@ RSpec.describe EmployeesController, type: :controller do
       expect(@employee.address).to eq('890 Old Street')
     end
 
-    it 'should update compensation information successfully' do
+    it 'should update compensation information successfully with valid data' do
       put :update_compensation, params: { company_name: @company.company_name, id: @employee.id, employee: { salary: 100000 } }
       expect(controller).to set_flash[:success]
       @employee.reload
       expect(response).to redirect_to(company_employee_path(@company.company_name, @employee))
       expect(@employee.salary).to eq(100000)
+    end
+
+    it 'should NOT update personal information successfully with invalid data' do
+      put :update_information, params: { company_name: @company.company_name, id: @employee.id, employee: { email: nil } }
+      expect(controller).to set_flash[:alert]
+      @employee.reload
+      expect(response).to redirect_to(edit_information_company_employee_path(@company.company_name, @employee))
+      expect(@employee.email).to eq('john_doe@bloomberg.com')
+    end
+
+    it 'should NOT update compensation information successfully with invalid data' do
+      put :update_compensation, params: { company_name: @company.company_name, id: @employee.id, employee: { salary: nil } }
+      expect(controller).to set_flash[:alert]
+      @employee.reload
+      expect(response).to redirect_to(edit_compensation_company_employee_path(@company.company_name, @employee))
+      expect(@employee.salary).to eq(50000)
+    end
+
+    it 'should NOT have access to an employee from another company' do
+      get :show, params: { company_name: @company2.company_name, id: @employee3.id }
+      expect(response).to have_http_status(302)
+      expect(controller).to set_flash[:alert]
+    end
+
+    it 'should NOT be able to update information of an employee from another company' do
+      salary = @employee3.salary
+      put :update_compensation, params: { company_name: @company2.company_name, id: @employee3.id, employee: { salary: 500000 } }
+      expect(response).to have_http_status(302)
+      expect(controller).to set_flash[:alert]
+      @employee3.reload
+      expect(@employee3.salary).to eq(salary)
     end
   end
 end

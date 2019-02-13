@@ -5,7 +5,7 @@ FactoryBot.define do
     location { "Office 201" }
   end
 
-  factory :random_department do
+  factory :random_department, class: 'Department' do
     department_name { Faker::Job.field }
     company_id { 1 }
     location { Faker::Address.secondary_address }

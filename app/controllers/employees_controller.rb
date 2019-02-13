@@ -22,25 +22,33 @@ class EmployeesController < ApplicationController
   def update_information
     @employee = Employee.find(params[:id])
     verify_access(@employee)
-    @employee.update!(personal_params)
-    flash[:success] = "Personal information updated successfully"
-    redirect_to company_employee_path(current_company.company_name, @employee)
+    if @employee.update(personal_params)
+      flash[:success] = "Personal information updated successfully"
+      redirect_to company_employee_path(current_company.company_name, @employee)
+    else
+      flash[:alert] = @employee.errors.full_messages.to_sentence
+      redirect_to edit_information_company_employee_path(current_company.company_name, @employee)
+    end
   end
 
   def update_compensation
     @employee = Employee.find(params[:id])
-    @employee.update!(compensation_params)
-    flash[:success] = "Compensation information updated successfully"
-    redirect_to company_employee_path(current_company.company_name, @employee)
+    if @employee.update(compensation_params)
+      flash[:success] = "Compensation information updated successfully"
+      redirect_to company_employee_path(current_company.company_name, @employee)
+    else
+      flash[:alert] = @employee.errors.full_messages.to_sentence
+      redirect_to edit_compensation_company_employee_path(current_company.company_name, @employee)
+    end
   end
 
   private
 
   def verify_access(employee)
-    if (current_user != employee && !current_user.admin)
-      flash[:alert] = "You need to be an administrator to access this page."
-      redirect_to root_path
-    end
+    # If the user is the same OR if the user is an administrator for the company THEN allow access.
+    return if (current_user == employee || (current_user.admin && current_user.company == employee.company))
+    flash[:alert] = "You need to be an administrator to access this page."
+    redirect_to root_path
   end
 
   def personal_params

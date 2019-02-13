@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 
   def employee_list
     if current_company
-      @employees = Employee.employees_for_company(current_company)
+      @employees = current_company.employees
     else
       @employees = Employee.all
     end

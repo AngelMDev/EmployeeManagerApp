@@ -3,16 +3,12 @@ class Employee < ApplicationRecord
 
   validates :name, :title, :email, :salary, presence: true
 
-  # Find all employees for a given company
-  scope :employees_for_company, ->(company) {
-    joins(:department).where('departments.company_id = ?', company.id)
-  }
 
-  # Chain the previous scope to find the top earners of a company sorted by department name and salary
+  # Find the top earners of a company sorted by department name and salary
   scope :top_earners_for_company, ->(company) {
-    employees_for_company(company)
-      .select(:id, :name, :department_name, :salary)
-      .order('department_name', salary: :desc)
+    company.employees
+           .select(:id, :name, :department_name, :salary)
+           .order('department_name', salary: :desc)
   }
 
   def company
