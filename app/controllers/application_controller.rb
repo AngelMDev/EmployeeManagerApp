@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin
-    return if current_user&.admin
+    return if current_user&.admin && current_user.company == current_company
     flash[:alert] = "You need to be an administrator to access this page."
     if current_user&.company == current_company
       redirect_to company_employee_path(current_company, current_user)

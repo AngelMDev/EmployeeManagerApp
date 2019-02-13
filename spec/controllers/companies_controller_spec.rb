@@ -8,17 +8,6 @@ RSpec.describe CompaniesController, type: :controller do
     @employee1 = create(:employee, department_id: @department1.id)
   end
 
-  context 'any user' do
-    before(:each) do
-      session[:user] = nil
-    end
-
-    it 'should be able to access the company index' do
-      get :index
-      expect(response).to have_http_status(200)
-    end
-  end
-
   context 'a logged in user' do
     before(:each) do
       session[:user] = @employee1.id

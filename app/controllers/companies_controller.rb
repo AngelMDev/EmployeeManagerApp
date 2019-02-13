@@ -1,9 +1,5 @@
 class CompaniesController < ApplicationController
-  before_action :authenticate_admin, except: :index
-
-  def index
-    @companies = Company.all
-  end
+  before_action :authenticate_admin
 
   def show
     @company = current_company

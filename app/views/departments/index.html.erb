@@ -1,0 +1,6 @@
+<h3>Departments of <%= current_company.company_name %></h3>
+<ul>
+  <% @departments.each do |department| %>
+    <li><%= link_to department.department_name, company_department_path(current_company, department) %></li>
+  <% end %>
+</ul>

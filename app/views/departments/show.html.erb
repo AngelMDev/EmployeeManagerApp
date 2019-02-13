@@ -1,0 +1,14 @@
+<h3><%= @department.department_name %></h3>
+
+<table class="table col-sm-4 table-bordered table-hover table-sm">
+  <tr class="table-active">
+    <th scope="col">Name</th>
+    <th scope="col">Salary</th>
+  </tr>
+  <% @employees.each do |employee| %>
+    <tr>
+      <td><%= link_to(employee.name, company_employee_path(current_company.company_name, employee.id)) %></td>
+      <td><%= employee.salary %></td>
+    </tr>
+  <% end %>
+</table>

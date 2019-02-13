@@ -1,18 +1,17 @@
 class EmployeesController < ApplicationController
   before_action :authenticate_user
   before_action :authenticate_admin, except: [:show, :edit_information, :update_information]
+  before_action :verify_access, except: :index
 
   def index
   end
 
   def show
     @employee = Employee.find(params[:id])
-    verify_access(@employee)
   end
 
   def edit_information
     @employee = Employee.find(params[:id])
-    verify_access(@employee)
   end
 
   def edit_compensation
@@ -21,7 +20,6 @@ class EmployeesController < ApplicationController
 
   def update_information
     @employee = Employee.find(params[:id])
-    verify_access(@employee)
     if @employee.update(personal_params)
       flash[:success] = "Personal information updated successfully"
       redirect_to company_employee_path(current_company.company_name, @employee)
@@ -44,10 +42,11 @@ class EmployeesController < ApplicationController
 
   private
 
-  def verify_access(employee)
+  def verify_access
+    employee = Employee.find(params[:id])
     # If the user is the same OR if the user is an administrator for the company THEN allow access.
     return if (current_user == employee || (current_user.admin && current_user.company == employee.company))
-    flash[:alert] = "You need to be an administrator to access this page."
+    flash[:alert] = "You need to be an administrator of this company to access this page"
     redirect_to root_path
   end
 

@@ -3,10 +3,10 @@ class Employee < ApplicationRecord
 
   validates :name, :title, :email, :salary, presence: true
 
-  # Find the top earners of a company sorted by department name and salary
+  # Find the top earners of a company sorted by departments name and salary
   scope :top_earners_for_company, ->(company) {
     company.employees
-           .select(:id, :name, :department_name, :salary)
+           .select(:id, :name, :department_id, :department_name, :salary)
            .order('department_name', salary: :desc)
   }
 
@@ -21,7 +21,7 @@ class Employee < ApplicationRecord
 
   def self.top_earners_by_department(company)
     Employee.top_earners_for_company(company) # Gets sorted list of employees, their salaries and departments
-            .group_by { |t| t.department_name } # Generates a hash where the key is the department name and the value the employees of that department
+            .group_by { |t| t.department_name } # Generates a hash where the key is the departments name and the value the employees of that departments
             .values.map { |group| group.take(3) } # Selects only 3 employees from each group
             .flatten # Flattens into a single array
   end

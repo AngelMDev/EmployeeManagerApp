@@ -6,6 +6,7 @@
 
 <%= link_to "View all employees", company_employees_path(@company), class: "btn btn-info" if current_user.admin %>
 <%= link_to "View your information", company_employee_path(@company, current_user), class: "btn btn-info" %>
+<%= link_to "View all departments", company_departments_path(@company), class: "btn btn-info" %>
 <br><br>
 
 <table class="table col-sm-4 table-bordered table-hover table-sm">
@@ -16,7 +17,7 @@
   </tr>
   <% @top_earners.each do |employee| %>
     <tr>
-      <td><%= employee.department_name %></td>
+      <td><%= link_to employee.department_name, company_department_path(current_company, employee.department_id) %></td>
       <td><%= link_to(employee.name, company_employee_path(@company.company_name, employee.id)) %></td>
       <td><%= employee.salary %></td>
     </tr>
