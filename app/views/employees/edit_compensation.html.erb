@@ -1,0 +1,14 @@
+<br>
+<%= form_for(@employee, url: { action: 'update_compensation' }) do |f| %>
+  <%= f.label :salary %>
+  <%= f.text_field :salary, value: @employee.salary  %><br>
+  <%= f.label :bonus %>
+  <%= f.text_field :bonus, value: @employee.bonus %><br>
+  <%= f.label :health_insurance %>
+  <%= f.check_box :health_insurance, value: @employee.health_insurance %><br>
+  <%= f.label :matching, "401k Matching" %>
+  <%= f.check_box :matching, value: @employee.matching %><br>
+  <%= f.label :pto %>
+  <%= f.check_box :pto, value: @employee.pto %><br>
+  <%= f.submit :Save %>
+<% end %>

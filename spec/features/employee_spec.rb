@@ -39,9 +39,9 @@ feature 'Edit personal information' do
     select(employee.name, :from => 'employee')
     click_button 'Sign in'
     click_link 'Edit personal information'
-    fill_in 'email', with: 'john_doe2@bloomberg.com'
-    fill_in 'address', with: '123 New Avenue Apt 201'
-    fill_in 'phone', with: '888-8888'
+    fill_in 'employee_email', with: 'john_doe2@bloomberg.com'
+    fill_in 'employee_address', with: '123 New Avenue Apt 201'
+    fill_in 'employee_phone', with: '888-8888'
     click_button 'Save'
     expect(page).to have_content('john_doe2@bloomberg.com').and have_content('123 New Avenue Apt 201').and have_content('888-8888')
   end
@@ -52,9 +52,9 @@ feature 'Edit personal information' do
     click_link 'View all employees'
     click_link employee.name
     click_link 'Edit personal information'
-    fill_in 'email', with: 'john_doe3@bloomberg.com'
-    fill_in 'address', with: '256 Old Avenue Apt 201'
-    fill_in 'phone', with: '333-3333'
+    fill_in 'employee_email', with: 'john_doe3@bloomberg.com'
+    fill_in 'employee_address', with: '256 Old Avenue Apt 201'
+    fill_in 'employee_phone', with: '333-3333'
     click_button 'Save'
     expect(page).to have_content('john_doe3@bloomberg.com').and have_content('256 Old Avenue Apt 201').and have_content('333-3333')
   end
@@ -76,8 +76,8 @@ feature 'Edit compensation information' do
     click_link 'View all employees'
     click_link employee.name
     click_link 'Edit compensation information'
-    fill_in 'salary', with: '75000'
-    fill_in 'bonus', with: '5000'
+    fill_in 'employee_salary', with: '75000'
+    fill_in 'employee_bonus', with: '5000'
     click_button 'Save'
     expect(page).to have_content('75000').and have_content('5000')
   end

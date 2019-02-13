@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_02_09_210653) do
 
   create_table "companies", force: :cascade do |t|
-    t.string "name"
+    t.string "company_name"
     t.string "sector"
     t.string "address"
     t.string "phone"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_02_09_210653) do
   end
 
   create_table "departments", force: :cascade do |t|
-    t.string "name"
+    t.string "department_name"
     t.integer "company_id"
     t.string "location"
     t.datetime "created_at", null: false

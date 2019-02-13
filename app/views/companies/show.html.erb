@@ -1,2 +1,23 @@
-<h1>Companies#show</h1>
-<p>Find me in app/views/companies/show.html.erb</p>
+
+<%= link_to "View all employees", company_employees_path(@company) if current_user.admin %>
+<%= link_to "View your information", company_employee_path(@company, current_user) %>
+
+<h3><%= @company.company_name %></h3>
+<p><%= @company.sector %></p>
+<p><%= @company.address %></p>
+<p><%= @company.phone %></p>
+
+<table>
+  <tr>
+    <th>Department</th>
+    <th>Name</th>
+    <th>Top Salaries</th>
+  </tr>
+  <% @top_earners.each do |employee| %>
+    <tr>
+      <td><%= employee.department_name %></td>
+      <td><%= link_to(employee.name, company_employee_path(@company.company_name, employee.id)) %></td>
+      <td><%= employee.salary %></td>
+    </tr>
+  <% end %>
+</table>

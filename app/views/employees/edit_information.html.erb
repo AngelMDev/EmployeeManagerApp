@@ -1,0 +1,12 @@
+<br>
+<%= form_for(@employee, url: { action: 'update_information' }) do |f| %>
+  <%= f.label :email %>
+  <%= f.email_field :email, value: @employee.email  %><br>
+  <%= f.label :address %>
+  <%= f.text_field :address, value: @employee.address %><br>
+  <%= f.label :phone %>
+  <%= f.text_field :phone, value: @employee.phone %><br>
+  <%= f.submit :Save %>
+<% end %>
+
+

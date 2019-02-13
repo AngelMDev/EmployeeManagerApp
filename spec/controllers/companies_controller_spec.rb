@@ -26,7 +26,7 @@ RSpec.describe CompaniesController, type: :controller do
 
     it 'should be able to access the company where they belong' do
       get :show, params: { name: @company1.company_name }
-      expect(response).to have_http_status(200)
+      expect(response).to redirect_to(company_employee_path(@company1.company_name, @employee1))
     end
 
     it 'should not be able to access a company where they don\'t belong' do

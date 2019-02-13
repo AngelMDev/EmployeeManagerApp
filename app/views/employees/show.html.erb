@@ -1,2 +1,15 @@
-<h1>Employees#show</h1>
-<p>Find me in app/views/employees/show.html.erb</p>
+
+<p>Name: <%= @employee.name %></p>
+<p>Title: <%= @employee.title %></p>
+<p>Email: <%= @employee.email %></p>
+<p>Address: <%= @employee.address %></p>
+<p>Phone: <%= @employee.phone %></p>
+<p>Salary: <%= @employee.salary %></p>
+<p>Bonus: <%= @employee.bonus %></p>
+<p>Health Insurance: <%= @employee.health_insurance ? "Yes" : "No" %></p>
+<p>401k Matching: <%= @employee.matching ? "Yes" : "No" %></p>
+<p>PTO: <%= @employee.pto ? "Yes" : "No" %></p>
+
+<%= link_to('Edit personal information', edit_information_company_employee_path(current_company.company_name, @employee)) if current_user == @employee || current_user.admin %>
+<%= link_to('Edit compensation information', edit_compensation_company_employee_path(current_company.company_name, @employee)) if current_user.admin %>
+
