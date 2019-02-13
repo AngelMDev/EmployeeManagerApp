@@ -6,14 +6,15 @@ A test-driven multitenant web application for managing employees of a company, b
 
 Clone the project and run ```bundle install```, ```rake db:create```, ```rake db:migrate```.
 Use ``` rake db:seed ``` to populate the database with 3 fake companies, along with 3 departments per company and 4 employees by department 
-plus an admnistrator for each company. You can change these numbers in the seeds file. The app uses the [Faker gem](https://github.com/stympy/faker) to generate fake data.
+plus an administrator for each company. You can change these numbers in the seeds file. The app uses the [Faker gem](https://github.com/stympy/faker) to generate fake data.
 
 run ```rails server``` to start the application setup by default to localhost:3000
 
-To run tests use ```rspec```.
+To run tests use the ```rspec``` command in the project's root directory.
 
  Upon navigating to the homepage you'll need to 'sign in' using the drop down list, if you wish to login as an administrator look for employees with an (Administrator) tag, otherwise choose another employee.
  Pressing sign in will then redirect you to the company page if you're an administrator, or your personal page if you're a regular employee.
+ Once logged in you will only see users from the same company in the dropdown, to view all employees from other companies you need to logout.
  
 As an administrator you can access features such as a list of all employees for the company, view the top 3 earners of each department, and edit each employee information, including compensation (salary, bonus, benefits, etc.)
 
