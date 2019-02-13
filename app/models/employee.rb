@@ -3,7 +3,6 @@ class Employee < ApplicationRecord
 
   validates :name, :title, :email, :salary, presence: true
 
-
   # Find the top earners of a company sorted by department name and salary
   scope :top_earners_for_company, ->(company) {
     company.employees
