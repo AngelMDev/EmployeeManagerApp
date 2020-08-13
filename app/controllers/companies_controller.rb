@@ -3,6 +3,6 @@ class CompaniesController < ApplicationController
 
   def show
     @company = current_company
-    @top_earners = Employee.top_earners_by_department(@company)
+    @top_earners = @company.top_three_earners_by_department
   end
 end
