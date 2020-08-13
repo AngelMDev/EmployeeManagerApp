@@ -24,11 +24,11 @@ Employee.create(name: 'Rob Smith', admin: true, title: 'Director of Marketing',
                     sector: Faker::Company.industry,
                     address: Faker::Address.street_address,
                     phone: Faker::PhoneNumber.phone_number)
-  3.times do
+  5.times do
     d = Department.create(department_name: Faker::Job.field,
                           company_id: c.id,
                           location: Faker::Address.secondary_address)
-    4.times do
+    8.times do
       Employee.create(name: Faker::Name.name,
                       department_id: d.id,
                       admin: false,
