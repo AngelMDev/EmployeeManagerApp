@@ -88,7 +88,9 @@ There are three important requirements for this app:
 It is evident that a basic permission system, and testing what users can and cannot see is necessary to fulfill these requirements.
 One of the elements to achieve this is the dummy SessionsControllers, which is meant to simulate user authentication without the hassle of a real authentication system such as Devise. It merely uses a browser cookie to store session information and the available users for all companies are available in a dropdown list. In this app there are only two roles: 'admin' or 'employee', as such, a boolean flag was added to the employees table to indicate this. To restrict users from accessing areas of the application that they aren't supposed to access, several "before_action" filters were added were appropriate, these determine whether to let the user pass through or redirect them to an area they can access. One such filter is the ```verify_access``` method in the employees controller, which, for the controller actions that is applied, determines if the user is the same as the employee they are trying to access OR if the user is an administrator for the company THEN allow access. There is also ```authenticate_user``` and ```authenticate_admin``` which work as expected similarly to how Devise implements them, just a lot simpler.
 
-Another important requirement was the addition of the top earners table, which show the top three employees per department that earn the most in the company, sorted first by department name and then by salary. In order to implement this, we use the following query:
+### Top-3 earners per department
+
+Another important requirement was the addition of the top earners table, which show the top three employees per department that earn the most in the company, sorted first by department name and then by salary, in a single table. In order to implement this, we use the following query:
 ```  
       SELECT id, name, salary, department_id, department_name, company_id
       FROM (
@@ -104,6 +106,11 @@ Another important requirement was the addition of the top earners table, which s
   ```
   
 Using a window query and the rank() function we are able to select and order the employees of the company by department name and salary, we then select only the top three results per partition. OVER and PARTITION BY allow us to divide a given result set into groups (in this case, by department) AND to perform operations on each group, in this case we are ordering the results within each subset and ranking them using the Rank() SQL function which will assign a rank to each of the subsets based on the result of the order, which then allow us to filter so that we can select those with a rank of less than 3, effectively giving us the top three.
+
+The resulting table looks like this:
+
+![Table Result](https://i.imgur.com/ZnIdNuk.png)
+
   
   ## The future
   
