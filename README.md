@@ -105,7 +105,7 @@ Another important requirement was the addition of the top earners table, which s
       WHERE rank <= 3
   ```
   
-Using a window query and the rank() function we are able to select and order the employees of the company by department name and salary, we then select only the top three results per partition. OVER and PARTITION BY allow us to divide a given result set into groups (in this case, by department) AND to perform operations on each group, in this case we are ordering the results within each subset and ranking them using the Rank() SQL function which will assign a rank to each of the subsets based on the result of the order, which then allow us to filter so that we can select those with a rank of less than 3, effectively giving us the top three.
+Using a window query and the rank() function we are able to select and order the employees of the company by department name and salary, we then select only the top three results per partition. OVER and PARTITION BY allow us to divide a given result set into groups (in this case, by department) AND to perform operations on each group. In this example, we are ordering the results within each subset and ranking them using the Rank() SQL function which will assign a rank to each of the subsets based on the result of the order, which then allow us to filter for those with a rank of less than 3, effectively giving us the top three.
 
 The resulting table looks like this:
 
